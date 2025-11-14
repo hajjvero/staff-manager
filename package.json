@@ -1,0 +1,11 @@
+{
+  "name": "staff-manager",
+  "version": "1.0.0",
+  "description": "Workspace Staff Manager",
+  "main": "assets/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hamza HAJJAJI",
+  "license": "ISC"
+}
