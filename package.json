@@ -9,6 +9,7 @@
   "author": "Hamza HAJJAJI",
   "license": "ISC",
   "dependencies": {
+    "animate.css": "^4.1.1",
     "bootstrap": "^5.3.8"
   }
 }
