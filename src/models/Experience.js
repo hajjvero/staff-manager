@@ -1,7 +1,7 @@
 import {generateUUID} from "../utils/helpers.js";
 
 export default class Experience {
-    constructor(id, company, role, from, to, ) {
+    constructor({id, company, role, from, to} = {}) {
         this.id = id || generateUUID("exp_");
         this.company = company;
         this.role = role;
