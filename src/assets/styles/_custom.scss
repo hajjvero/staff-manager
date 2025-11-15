@@ -1,0 +1,77 @@
+/*  ===================== FONT ===================== */
+@font-face {
+  font-family: "Roboto";
+  src: url("../font/Roboto-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*  ===================== GENERAL ===================== */
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+}
+
+/* ===================== FLOOR PLAN ===================== */
+.floor-plan {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+  .floor-plan {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 200px);
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991px) {
+  .floor-plan {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 180px);
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .floor-plan {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 160px);
+  }
+}
+
+.zone {
+  border: 2px dashed #aaa;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8f9fa;
+  font-weight: 600;
+}
+
+/* ===================== SIDEBAR ===================== */
+
+.sidebar {
+  border-right: 1px solid #ddd;
+  min-height: 100vh;
+}
+
+/* Mobile/tablet: sidebar auto-height */
+@media (max-width: 991px) {
+  .sidebar {
+    min-height: auto;
+    height: auto;
+  }
+}
+
+.staff-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ddd;
+  display: inline-block;
+  margin-right: 10px;
+}

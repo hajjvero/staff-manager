@@ -4,7 +4,7 @@
   "description": "Workspace Staff Manager",
   "main": "assets/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "sass -q --no-source-map src/assets/styles/app.scss src/assets/app.css"
   },
   "author": "Hamza HAJJAJI",
   "license": "ISC",
@@ -12,5 +12,8 @@
     "animate.css": "^4.1.1",
     "bootstrap": "^5.3.8",
     "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "sass": "^1.94.0"
   }
 }

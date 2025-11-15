@@ -1,0 +1,8 @@
+// Import bootstrap
+@use "../../../node_modules/bootstrap/scss/bootstrap" as *;
+
+// Import animate css
+@use "../../../node_modules/animate.css/animate.css";
+
+// Import custom style
+@use "custom" as *;
