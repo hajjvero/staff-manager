@@ -1,0 +1,106 @@
+/*  ===================== FONT ===================== */
+@font-face {
+  font-family: "Roboto";
+  src: url("../font/Roboto-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*  ===================== GENERAL ===================== */
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.main-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-fixed {
+  flex-shrink: 0;
+  height: 60px;
+}
+
+.content-wrapper {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+}
+
+.sidebar {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar #staffList {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.floor-plan-section {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.staff-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #e9ecef;
+}
+
+.zone {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  min-height: 200px;
+}
+
+.staff-item:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.2s;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .app-title {
+    font-size: 1.2rem;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    max-height: 300px;
+    min-height: 300px;
+  }
+
+  .floor-plan-section {
+    flex: 1;
+  }
+
+  .staff-photo {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 575px) {
+  .staff-item .btn {
+    padding: 0.25rem 0.4rem;
+  }
+}
