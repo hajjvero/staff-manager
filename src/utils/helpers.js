@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from '../../node_modules/uuid';
+import { v4 as uuidv4 } from '../../node_modules/uuid/dist/index.js';
 
 /**
  * Génère une chaîne UUID
