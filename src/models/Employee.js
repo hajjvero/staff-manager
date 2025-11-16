@@ -1,4 +1,5 @@
 import {generateUUID} from "../utils/helpers.js";
+import Experience from "./Experience.js";
 
 export default class Employee {
     constructor({ id = null, name = '', role = '', photo = '', email = '', phone = '', experiences = [] } = {}) {
@@ -8,11 +9,7 @@ export default class Employee {
         this.photo = photo;
         this.email = email;
         this.phone = phone;
-        this.experiences = experiences; // array
-    }
-
-    update(data = {}) {
-        Object.assign(this, data);
+        this.experiences = experiences.map(exp => new Experience(exp)); // array
     }
 
     toJSON() {

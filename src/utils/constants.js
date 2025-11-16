@@ -1,8 +1,9 @@
 export const ROLES = Object.freeze({
-    RECEPTION: 'Réception',
+    RECEPTIONISTE: 'Réceptionniste',
+    IT: 'Techniciens IT',
     SERVEUR: 'Serveurs',
-    SECURITE: 'Sécurité',
+    SECURITE: 'Agent de sécurité',
     MANAGER: 'Manager',
     NETTOYAGE: 'Nettoyage',
-    AUTRES: 'Autres'
+    AUTRES: 'Autres',
 })
