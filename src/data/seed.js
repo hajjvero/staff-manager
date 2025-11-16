@@ -5,35 +5,41 @@ export default {
     // Les zones disponibles
     zones: [
         {
-            name: "Salle de réception",
-            allowedRoles: [ROLES.RECEPTIONISTE, ROLES.NETTOYAGE],
-            maxEmployees: 3,
-        },
-        {
             name: "Salle de conférence",
             allowedRoles: [ROLES.RECEPTIONISTE, ROLES.IT, ROLES.SECURITE, ROLES.NETTOYAGE, ROLES.AUTRES],
-            maxEmployees: 10,
+            capacity: 10,
+            required: false
         },
         {
             name: "Salle des serveurs",
             allowedRoles: [ROLES.IT, ROLES.NETTOYAGE],
-            maxEmployees: 4,
+            capacity: 4,
+            required: true
         },
         {
             name: "Salle de sécurité",
             allowedRoles: [ROLES.SECURITE, ROLES.NETTOYAGE],
-            maxEmployees: 5,
+            capacity: 5,
+            required: true
+        },
+        {
+            name: "Salle de réception",
+            allowedRoles: [ROLES.RECEPTIONISTE, ROLES.NETTOYAGE],
+            capacity: 3,
+            required: true
         },
         {
             name: "Salle du personnel",
             allowedRoles: [ROLES.RECEPTIONISTE, ROLES.IT, ROLES.SECURITE, ROLES.NETTOYAGE, ROLES.AUTRES],
-            maxEmployees: 10,
+            capacity: 10,
+            required: false
         },
         {
             // Nettoyage n'est PAS autorisé
             name: "Salle d’archives",
             allowedRoles: [ROLES.RECEPTIONISTE, ROLES.IT, ROLES.SECURITE, ROLES.AUTRES],
-            maxEmployees: 6,
+            capacity: 6,
+            required: true
         },
     ]
 }

@@ -6,6 +6,7 @@ import ValidationService from "../services/ValidationService.js";
 import ExperienceCard from "../components/ExperienceCard.js";
 import {isEmpty} from "../utils/helpers.js";
 import Experience from "../models/Experience.js";
+import ZoneCard from "../components/ZoneCard.js";
 
 export default class AppController {
     constructor(data) {
@@ -17,6 +18,8 @@ export default class AppController {
 
     init() {
         this.renderUnassignedList();
+
+        this.renderZonesList();
 
         this.bindUI();
     }
@@ -43,6 +46,20 @@ export default class AppController {
 
         // save changes
         this.saveState();
+    }
+
+    renderZonesList() {
+        const container = document.getElementById('zonesList');
+        container.innerHTML = '';
+
+        this.plan.zones.forEach(zone => {
+            const card = new ZoneCard(zone, {
+                /*onEdit: () => this.editZone(zone),
+                onRemove: () => this.removeZone(zone),
+                onAssign: () => this.assignEmployee(zone)*/
+            });
+            container.appendChild(card.element);
+        });
     }
 
     renderExperienceList() {
