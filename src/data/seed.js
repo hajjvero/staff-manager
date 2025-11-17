@@ -37,7 +37,7 @@ export default {
         {
             // Nettoyage n'est PAS autorisé
             name: "Salle d’archives",
-            allowedRoles: [ROLES.RECEPTIONISTE, ROLES.IT, ROLES.SECURITE, ROLES.AUTRES],
+            allowedRoles: [ROLES.RECEPTIONISTE, ROLES.IT, ROLES.SECURITE],
             capacity: 6,
             required: true
         },
