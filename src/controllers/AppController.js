@@ -53,10 +53,9 @@ export default class AppController {
         container.innerHTML = '';
 
         this.plan.zones.forEach(zone => {
-            const card = new ZoneCard(zone, {
-                /*onEdit: () => this.editZone(zone),
-                onRemove: () => this.removeZone(zone),
-                onAssign: () => this.assignEmployee(zone)*/
+            const card = new ZoneCard(zone, this.employees,{
+                onAddMemberModal: () => this.onAddMemberModal(zone),
+                onRemoveMember: (empId) => this.removeEmployeeFromZone(zone.id, empId)
             });
             container.appendChild(card.element);
         });
@@ -201,6 +200,46 @@ export default class AppController {
         })
     }
 
+    // =================== Zone ===================
+
+    onAddMemberModal(zone) {
+        // get container of members in modal
+        const container = document.getElementById('membersZoneContainer');
+        container.innerHTML = '';
+
+        const employees = this.employees.filter(emp => zone.canAccept(emp) && !this.plan.isAssignedEmployee(emp.id));
+        if (employees.length > 0) {
+                employees.forEach(emp => {
+                    const card = new EmployeeCard(emp, {
+                        onClick: () => this.assignEmployee(zone, emp),
+                        onEdit: () => this.editEmployee(emp),
+                        onRemove: () => this.removeEmployeeFromUnassigned(emp.id)
+                    });
+
+                    container.appendChild(card.element);
+                });
+        } else {
+            container.innerHTML = '<p class="text-center text-muted small">Aucun employé disponible</p>';
+        }
+
+    }
+
+    assignEmployee(zone, emp) {
+        this.plan.placeEmployee(zone.id, emp);
+        this.renderZonesList(); // update zones spaces
+        this.renderUnassignedList(); // update unassigned list
+        this.onAddMemberModal(zone); // update members list in modal
+        this.saveState();
+    }
+
+    removeEmployeeFromZone(zoneId, empId) {
+        this.plan.removeEmployee(zoneId, empId);
+        this.renderZonesList(); // update zones spaces
+        this.renderUnassignedList(); //  update unassigned list
+        this.saveState();
+    }
+
+    // ==================== Employee ===================
     openEmployeeProfile(emp) {
         console.log("profile");
         // TODO: profile

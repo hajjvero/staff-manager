@@ -2,13 +2,13 @@ import {generateUUID} from "../utils/helpers.js";
 import {ROLES} from "../utils/constants.js";
 
 export default class Zone {
-    constructor({ id, name, allowedRoles = [], capacity = 0, required = false } = {}) {
+    constructor({ id, name, allowedRoles = [], capacity = 0, required = false, members = [] } = {}) {
         this.id = id || generateUUID("zone_");
         this.name = name;
         this.allowedRoles = allowedRoles; // ex: ['Receptionist']
         this.capacity = capacity;
         this.required = required; // true si doit contenir au moins 1 membre
-        this.members = []; // array of employee ids
+        this.members = members; // array of employee ids
     }
 
     canAccept(employee) {
