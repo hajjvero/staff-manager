@@ -55,7 +55,8 @@ export default class AppController {
         this.plan.zones.forEach(zone => {
             const card = new ZoneCard(zone, this.employees,{
                 onAddMemberModal: () => this.onAddMemberModal(zone),
-                onRemoveMember: (empId) => this.removeEmployeeFromZone(zone.id, empId)
+                onRemoveMember: (empId) => this.removeEmployeeFromZone(zone.id, empId),
+                onClickMember: (emp) => this.openEmployeeProfile(emp)
             });
             container.appendChild(card.element);
         });
@@ -266,9 +267,66 @@ export default class AppController {
     }
 
     // ==================== Employee ===================
-    openEmployeeProfile(emp) {
-        console.log("profile");
-        // TODO: profile
+    openEmployeeProfile(employer) {
+        const modalBody = document.getElementById('modalProfileWorkerBody');
+        const zoneLocation = this.plan.getZoneAssignedEmployee(employer.id);
+        modalBody.innerHTML = `
+            <!-- Employer Photo -->
+            <div class="text-center mb-4">
+                <img src="${employer.photo}" alt="${employer.name}" class="rounded-circle img-thumbnail" style="width: 120px; height: 120px; object-fit: cover;">
+            </div>
+        
+            <!-- Personal Information -->
+            <div class="mb-4">
+                <h5 class="border-bottom pb-2 mb-3">Personal Information</h5>
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col mb-3">
+                        <strong class="d-block text-muted small">Name</strong>
+                        <span>${employer.name}</span>
+                    </div>
+                    <div class="col mb-3">
+                        <strong class="d-block text-muted small">Role</strong>
+                        <span>${employer.role}</span>
+                    </div>
+                    <div class="col mb-3">
+                        <strong class="d-block text-muted small">Email</strong>
+                        <a href="mailto:${employer.email}">${employer.email}</a>
+                    </div>
+                    <div class="col mb-3">
+                        <strong class="d-block text-muted small">Phone</strong>
+                        <a href="tel:${employer.phone}">${employer.phone}</a>
+                    </div>
+                    ${!zoneLocation ? '' : `
+                        <div class="col mb-3">
+                            <strong class="d-block text-muted small">Current Location</strong>
+                            <span>${zoneLocation.name}</span>
+                        </div>
+                    `}
+                </div>
+            </div>
+        
+            <!-- Experience Section -->
+            <div>
+                <h5 class="border-bottom pb-2 mb-3">Les experiences</h5>
+                ${employer.experiences.length > 0 ? `
+                    <div class="list-group">
+                        ${employer.experiences.map(exp => `
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between align-items-start">
+                                    <h6 class="mb-1">${exp.role}</h6>
+                                    <small class="text-muted">${exp.from} - ${exp.to || 'Present'}</small>
+                                </div>
+                                <p class="mb-0 text-muted">${exp.company}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : `
+                    <p class="text-muted">No experience added yet.</p>
+                `}
+            </div>
+        `;
+
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('modalDetailsWorker')).show();
     }
 
     editEmployee(emp) {

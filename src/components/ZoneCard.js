@@ -1,11 +1,12 @@
 import EmployeeCard from "./EmployeeCard.js";
 
 export default class ZoneCard {
-    constructor(zone, employees, { onAddMemberModal = () => {}, onRemoveMember = () => {} } = {}) {
+    constructor(zone, employees, { onAddMemberModal = () => {}, onRemoveMember = () => {}, onClickMember = () => {} } = {}) {
         this.zone = zone;
         this.employees = employees;
         this.onAddMemberModal = onAddMemberModal;
         this.onRemoveMember = onRemoveMember;
+        this.onClickMember = onClickMember;
         this.element = this.render();
     }
 
@@ -43,6 +44,7 @@ export default class ZoneCard {
             this.zone.members.forEach((memberId) => {
                 const employee = this.employees.find(emp => emp.id === memberId);
                 const employeeCard = new EmployeeCard(employee, {
+                    onClick: (emp) => this.onClickMember(emp),
                     onRemoveMember: (empId) => this.onRemoveMember(empId)
                 });
                 membersContainer.appendChild(employeeCard.element);

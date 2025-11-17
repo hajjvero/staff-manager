@@ -13,6 +13,10 @@ export default class Plan {
         return this.zones.some(z => z.isFindMember(empId));
     }
 
+    getZoneAssignedEmployee(empId) {
+        return this.zones.find(z => z.isFindMember(empId));
+    }
+
     placeEmployee(zoneId, employee) {
         const zone = this.findZoneById(zoneId);
         if (!zone) throw new Error('Zone not found');
