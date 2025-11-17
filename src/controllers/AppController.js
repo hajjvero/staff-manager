@@ -90,7 +90,12 @@ export default class AppController {
         this.inputWorkerId = document.getElementById('workerId');
         this.inputWorkerName = document.getElementById('workerName');
         this.inputWorkerRole = document.getElementById('workerRole');
+
+        // handle photo
         this.inputWorkerPhoto = document.getElementById('workerPhoto');
+        this.inputWorkerPhotoFile = document.getElementById('photo-file');
+        this.photoPreview = document.getElementById('photo-preview');
+
         this.inputWorkerEmail = document.getElementById('workerEmail');
         this.inputWorkerPhone = document.getElementById('workerPhone');
 
@@ -179,7 +184,7 @@ export default class AppController {
                     id,
                     name: this.inputWorkerName.value,
                     role: this.inputWorkerRole.value,
-                    photo: this.inputWorkerPhoto.value,
+                    photo: this.photoPreview.src,
                     email: this.inputWorkerEmail.value,
                     phone: this.inputWorkerPhone.value,
                     experiences: this.temporaryExperience
@@ -196,6 +201,27 @@ export default class AppController {
                 this.clearForm();
 
                 this.renderUnassignedList();
+            }
+        });
+
+        // Event of hande photo
+        // 1 - from url
+        this.inputWorkerPhoto.addEventListener('input', () => {
+            if (!isEmpty(this.inputWorkerPhoto.value.trim())) {
+                this.photoPreview.src = this.inputWorkerPhoto.value.trim();
+            } else {
+                this.photoPreview.src = '../../public/default-avatar.svg';
+            }
+        });
+        // 2 - from file
+        this.inputWorkerPhotoFile.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.photoPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
         })
     }
@@ -271,7 +297,13 @@ export default class AppController {
         this.inputWorkerId.value = employee.id;
         this.inputWorkerName.value = employee.name;
         this.inputWorkerRole.value = employee.role;
-        this.inputWorkerPhoto.value = employee.photo;
+
+        // display photo
+        if (!employee.photo.startsWith("data:")) {
+            this.inputWorkerPhoto.value = employee.photo;
+        }
+        this.photoPreview.src = employee.photo;
+
         this.inputWorkerEmail.value = employee.email;
         this.inputWorkerPhone.value = employee.phone;
 
@@ -292,6 +324,7 @@ export default class AppController {
         this.inputWorkerName.value = '';
         this.inputWorkerRole.value = '';
         this.inputWorkerPhoto.value = '';
+        this.photoPreview.src = '../../public/default-avatar.svg';
         this.inputWorkerEmail.value = '';
         this.inputWorkerPhone.value = '';
 
