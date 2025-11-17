@@ -17,21 +17,27 @@ export default class AppController {
     }
 
     init() {
+        this.bindUI();
+
         this.renderUnassignedList();
 
         this.renderZonesList();
-
-        this.bindUI();
     }
 
     // =================== Render ===================
 
     renderUnassignedList() {
+        const search = this.searchInput.value.toLowerCase().trim();
+        let filteredEmployees = this.employees.filter(e => !this.isAssigned(e.id));
+        if (!isEmpty(search)) {
+            filteredEmployees = filteredEmployees.filter(emp => emp.name.toLowerCase().includes(search));
+        }
+
         const container = document.getElementById('unassignedList');
         container.innerHTML = '';
 
-        if (this.employees.length > 0) {
-            this.employees.filter(e => !this.isAssigned(e.id))
+        if (filteredEmployees.length > 0) {
+            filteredEmployees
                 .forEach(emp => {
                     const card = new EmployeeCard(emp, {
                         onClick: () => this.openEmployeeProfile(emp),
@@ -82,6 +88,10 @@ export default class AppController {
 
     // =================== Bind ===================
     bindUI() {
+        // Search input
+        this.searchInput = document.getElementById('searchInput');
+        this.clearSearch = document.getElementById('clearSearch');
+
         this.workerForm = document.getElementById('workerForm');
         this.btnAddWorker = document.getElementById('btn-add-worker');
         this.modalFormWorkerLabel = document.getElementById('modalFormWorkerLabel');
@@ -224,6 +234,16 @@ export default class AppController {
                 };
                 reader.readAsDataURL(file);
             }
+        });
+
+        // search logic
+        this.searchInput.addEventListener('input', (e) => {
+            this.renderUnassignedList();
+        });
+
+        this.clearSearch.addEventListener('click', (e) => {
+            this.searchInput.value = '';
+            this.renderUnassignedList();
         })
     }
 
