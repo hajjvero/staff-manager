@@ -62,7 +62,8 @@ export default class AppController {
             const card = new ZoneCard(zone, this.employees,{
                 onAddMemberModal: () => this.onAddMemberModal(zone),
                 onRemoveMember: (empId) => this.removeEmployeeFromZone(zone.id, empId),
-                onClickMember: (emp) => this.openEmployeeProfile(emp)
+                onClickMember: (emp) => this.openEmployeeProfile(emp),
+                onDragMember: (empId) => this.assignEmployeeByDrag(zone, empId),
             });
             container.appendChild(card.element);
         });
@@ -277,6 +278,16 @@ export default class AppController {
         this.renderUnassignedList(); // update unassigned list
         this.onAddMemberModal(zone); // update members list in modal
         this.saveState();
+    }
+
+    assignEmployeeByDrag(zone, empId) {
+        const emp = this.employees.find(emp => emp.id === empId);
+        if (zone.canAccept(emp)) {
+            this.plan.removeEmployeeFromPlan(empId);
+            this.assignEmployee(zone, emp);
+        } else {
+            alert("Cet employé ne peut pas être assigné à cette zone.");
+        }
     }
 
     removeEmployeeFromZone(zoneId, empId) {

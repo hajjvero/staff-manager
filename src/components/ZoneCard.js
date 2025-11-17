@@ -1,12 +1,13 @@
 import EmployeeCard from "./EmployeeCard.js";
 
 export default class ZoneCard {
-    constructor(zone, employees, { onAddMemberModal = () => {}, onRemoveMember = () => {}, onClickMember = () => {} } = {}) {
+    constructor(zone, employees, { onAddMemberModal = () => {}, onRemoveMember = () => {}, onClickMember = () => {}, onDragMember = () => {} } = {}) {
         this.zone = zone;
         this.employees = employees;
         this.onAddMemberModal = onAddMemberModal;
         this.onRemoveMember = onRemoveMember;
         this.onClickMember = onClickMember;
+        this.onDragMember = onDragMember;
         this.element = this.render();
     }
 
@@ -57,6 +58,33 @@ export default class ZoneCard {
         article.querySelector(".btn-add-member").addEventListener('click', (e) => {
             e.stopPropagation();
             this.onAddMemberModal();
+        });
+
+        // Event draggable
+        membersContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        //  Event drag enter
+        membersContainer.addEventListener('dragenter', (e) => {
+            e.preventDefault();
+            membersContainer.classList.add('border', 'border-primary', 'border-2', 'rounded-2');
+        });
+
+        //  Event drag leave
+        membersContainer.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            membersContainer.classList.remove('border', 'border-primary', 'border-2', 'rounded-2');
+        });
+
+        // Event drop
+        membersContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            membersContainer.classList.remove('border', 'border-2', 'rounded-2');
+            membersContainer.classList.remove('border-primary');
+
+            const empId = e.dataTransfer.getData('text/plain');
+            this.onDragMember(empId);
         });
         
         return article;
