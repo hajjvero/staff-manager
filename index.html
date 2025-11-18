@@ -4,12 +4,14 @@
     <!-- meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Gestionnaire de staff">
+
+    <!-- primary Meta Tags -->
+    <meta name="description" content="Professional staff management system - Organize, track, and manage your team efficiently with Staff Manager. Built by Hamza HAJJAJI.">
+    <meta name="keywords" content="staff management, team manager, employee management, workforce management, staff scheduler, team organization, HR management, youcode">
     <meta name="author" content="Hamza HAJJAJI">
-    <meta name="keywords" content="staff, manager, youcode">
 
     <!-- title -->
-    <title>Staff Manager</title>
+    <title>Staff Manager - Professional Team Management System | Hamza HAJJAJI</title>
 
     <!-- favicon -->
     <link rel="icon" href="./public/favicon.ico">
@@ -30,7 +32,7 @@
     <header class="p-2 p-md-3 bg-white border-bottom header-fixed">
         <div class="container-fluid">
             <div class="d-flex align-items-center gap-2 gap-md-3">
-                <img src="./public/youcode_logo.png" height="40" alt="Logo">
+                <img src="./public/youcode_logo.png" height="40" alt="Logo" fetchpriority="high">
                 <h1 class="app-title mb-0">Staff Manage</h1>
             </div>
         </div>
@@ -44,7 +46,7 @@
                 <h2 class="mb-3 fs-5 fs-md-4">Personnel non affecté</h2>
 
                 <!-- Search Input -->
-                <section class="input-group input-group-sm mb-3">
+                <div class="input-group input-group-sm mb-3">
                     <input type="text" class="form-control" placeholder="Rechercher..." aria-label="Search"
                            id="searchInput">
                     <button class="btn btn-outline-secondary" type="button" id="clearSearch" aria-label="Clear">
@@ -53,7 +55,7 @@
                                   d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"/>
                         </svg>
                     </button>
-                </section>
+                </div>
 
                 <!-- Staff List -->
                 <ul class="list-group mb-3 flex-shrink-1 overflow-y-auto" id="unassignedList" style="min-height: 100px">
@@ -72,9 +74,9 @@
             <section class="col-12 col-md-8 col-lg-9 col-xl-10 p-3 p-md-4 floor-plan-section">
                 <h2 class="fs-5 fs-md-4 mb-3">Plan d'étage</h2>
 
-                <section class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2 g-md-3" id="zonesList">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2 g-md-3" id="zonesList">
                     <!-- Zone list -->
-                </section>
+                </div>
             </section>
         </div>
     </main>
@@ -113,7 +115,7 @@
                     </div>
                     <div class="modal-body">
                         <form id="workerForm" novalidate>
-                            <input type="hidden" class="form-control" aria-label="workerId" id="workerId" readonly>
+                            <input type="hidden" class="form-control" aria-label="workerId" id="workerId">
                             <div class="mb-3 has-validation">
                                 <label for="workerName" class="form-label">Nom</label>
                                 <input type="text" class="form-control " id="workerName">
@@ -178,7 +180,7 @@
                                 </div>
                                 <div id="collapseExperience" class="collapse show">
                                     <div class="card-body">
-                                        <input type="hidden" class="form-control" aria-label="experienceId" id="experienceId" readonly>
+                                        <input type="hidden" class="form-control" aria-label="experienceId" id="experienceId">
                                         <div class="mb-3">
                                             <label for="experienceCompany" class="form-label">Company</label>
                                             <input type="text" class="form-control" id="experienceCompany">
