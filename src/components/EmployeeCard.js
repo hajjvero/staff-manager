@@ -13,6 +13,7 @@ export default class EmployeeCard {
         const li = document.createElement('li');
         li.setAttribute('class', 'list-group-item p-2 p-md-3 my-2 border rounded shadow-sm bg-secondary-subtle');
         li.setAttribute("style", "cursor: pointer;");
+        li.setAttribute('draggable', 'true');
 
         li.innerHTML = `
             <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
@@ -93,6 +94,16 @@ export default class EmployeeCard {
         li.addEventListener('click', () => {
             this.onClick(this.employee);
         });
+
+        // Event draggable
+        li.addEventListener('dragstart', (e) => {
+            li.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', this.employee.id);
+        })
+
+        li.addEventListener('dragend', () => {
+            li.classList.remove('dragging');
+        })
 
         return li;
     }

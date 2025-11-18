@@ -23,6 +23,10 @@ export default class Plan {
         zone.addMember(employee);
     }
 
+    removeEmployeeFromPlan(employeeId) {
+        this.zones.forEach(zone => zone.removeMember(employeeId));
+    }
+
     removeEmployee(zoneId, employeeId) {
         const zone = this.findZoneById(zoneId);
         if (!zone) throw new Error('Zone not found');
