@@ -156,6 +156,10 @@ export default class AppController {
                     this.valodatore.displayError(this.inputExperienceFrom, "Ce champ est requis.");
                     isValid = false;
                 }
+                if(!isEmpty(this.inputExperienceTo.value) && !(new Date(this.inputExperienceFrom.value) < new Date(this.inputExperienceTo.value))) {
+                    this.valodatore.displayError(this.inputExperienceTo, "La date de fin doit être supérieure à la date de début.");
+                    isValid = false;
+                }
 
                 return isValid;
             };
