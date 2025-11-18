@@ -13,7 +13,7 @@ export default class ZoneCard {
 
     render() {
         const article = document.createElement('article');
-        article.className = 'col';
+        article.classList.add('col','animate__animated','animate__headShake');
         
         // Compter le nombre de membres dans la zone
         const memberCount = this.zone.members.length;
