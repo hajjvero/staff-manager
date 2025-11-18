@@ -6,9 +6,9 @@ L’utilisateur peut **ajouter, déplacer, affecter ou retirer** des employés s
 
 L’objectif principal est d’offrir :
 - Une gestion centralisée du personnel
-- Une visualisation claire et interactive des postes occupés
-- Une interface fluide, accessible et moderne
-- Une application en **JavaScript Vanilla + HTML + CSS**
+- Une visualisation claire et interactive
+- Une interface fluide et accessible
+- Une application en **JavaScript Vanilla + HTML + CSS/Sass**
 
 ---
 
@@ -16,8 +16,9 @@ L’objectif principal est d’offrir :
 
 ### 1. 🔧 Gestion des employés
 - Ajout d’un employé via une modale (nom, rôle, email, téléphone, photo, expériences).
+- Génération d’un **UUID unique** pour chaque employé.
 - Prévisualisation instantanée de la photo.
-- Modification (optionnel) et suppression depuis la liste *Unassigned Staff*.
+- Modification et suppression depuis *Unassigned Staff*.
 
 ### 2. 🗺 Affichage du plan d’étage
 Le plan comprend **6 zones** :
@@ -28,7 +29,7 @@ Le plan comprend **6 zones** :
 - Salle du personnel
 - Salle d’archives
 
-Chaque zone inclut un bouton **"+"** pour y affecter un employé.
+Chaque zone possède un bouton **"+"** pour ajouter un employé.
 
 ### 3. 🔒 Règles métier
 - Réception → Réceptionnistes uniquement
@@ -38,30 +39,33 @@ Chaque zone inclut un bouton **"+"** pour y affecter un employé.
 - Nettoyage → partout sauf Salle d’archives
 - Autres → accès aux zones non restreintes
 
-### 4. ↩ Retrait et réorganisation
+### 4. ↩ Retrait & réorganisation
 - Chaque employé placé peut être retiré via un bouton **"X"**.
 - L’employé retourne dans *Unassigned Staff*.
 
 ### 5. 👁 Profil détaillé
 La fiche profil affiche :
 - Photo grand format
-- Nom
-- Rôle
+- Nom, rôle
 - Email & Téléphone
 - Expériences
 - Localisation actuelle
 
-### 6. 🎨 Interface responsive & animations
+### 6. 🎨 UI Responsive & Animations
 - Layout en **Flexbox + CSS Grid**
-- Compatible mobile, tablette, PC
-- Zones vides obligatoires visibles en rouge pâle
-- Animations CSS fluides
+- Compatibilité mobile / tablette / desktop
+- Zones vides visibles en rouge pâle
+- Animations fluides via :
+    - **CSS Transitions**
+    - **Animate.css**
+    - **Hover.css**
+    - **Animations personnalisées via Sass**
 
-### 7. 💾 Sauvegarde locale (Bonus)
-- Sauvegarde automatique de l’état du plan via **LocalStorage**.
+### 7. 💾 Sauvegarde locale
+- Sauvegarde automatique via **LocalStorage**.
 
 ### 8. 🖱 Drag & Drop (Bonus)
-- Déplacement des employés entre zones par glisser-déposer.
+- Déplacement d’employés entre zones via **Drag & Drop natif**.
 
 ---
 
@@ -74,7 +78,7 @@ La fiche profil affiche :
 > En tant qu’entreprise, je veux éviter l’affectation d’un employé dans une zone interdite.
 
 ### Ajout / Modification
-> En tant qu’administrateur, je veux ajouter, éditer ou supprimer des employés rapidement.
+> En tant qu’administrateur, je veux ajouter ou modifier les employés rapidement.
 
 ### Profil détaillé
 > Je veux accéder à toutes les informations d’un employé via une fiche dédiée.
@@ -94,10 +98,12 @@ La fiche profil affiche :
 
 | Catégorie | Technologie |
 |----------|-------------|
-| **Langages** | HTML5, CSS3, JavaScript (Vanilla) |
+| **Langages** | HTML5, CSS3, Sass, JavaScript Vanilla |
+| **Styling** | Sass (architecture modulaire SCSS) |
 | **Layout** | Flexbox, CSS Grid |
-| **UI / Modales** | JavaScript natif |
-| **Animations** | CSS Transitions |
+| **UI** | JavaScript natif |
+| **Animations** | CSS Transitions, Animate.css, Hover.css |
+| **Génération d’ID** | UUID v4 |
 | **Stockage** | LocalStorage |
 | **Validation** | W3C Validator |
 | **Versioning** | Git / GitHub |
@@ -117,20 +123,21 @@ La fiche profil affiche :
 
 ---
 
-## 📈 Critères de performance
+## 🔀 Stratégie de branches Git (Git Workflow)
 
-- Navigation fluide et sans latence
-- Mise à jour instantanée des zones
-- Validation du code HTML/CSS (W3C)
-- Responsive complet
-- Sauvegarde fiable dans LocalStorage
-- Code JS léger et optimisé
+### 🔹 1. Branche principale
+- **main**  
+  Version stable et prête à être déployée.
 
----
+### 🔹 2. Branche de développement
+- **develop**  
+  Intègre les nouvelles fonctionnalités avant merger dans main.
 
-## 🧾 Auteur
+### 🔹 3. Branches de fonctionnalités
+Convention : feat/`fonctionnalité`
 
-**👤 Hamza Hajjaji**  
-📅 *Projet réalisé dans le cadre d’un brief pédagogique — Novembre 2025*  
-🔗 GitHub : https://github.com/hajjvero
+Exemples :
+- `feat/add-employee-modal`
+- `feat/drag-and-drop`
+- `feat/profile-view`
 
