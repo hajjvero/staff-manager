@@ -1,4 +1,4 @@
-import {isEmail, isEmpty, isPhone} from "../utils/helpers.js";
+import {isEmail, isEmpty, isPhone, isURL} from "../utils/helpers.js";
 
 export default class ValidationService {
     // list of errors
@@ -16,6 +16,13 @@ export default class ValidationService {
             this._errors.push({
                 element: this.controller.inputWorkerName,
                 message: "Ce champ est requis."
+            });
+        }
+
+        if (!isEmpty(this.controller.inputWorkerPhoto.value.trim()) && !isURL(this.controller.inputWorkerPhoto.value.trim())) {
+            this._errors.push({
+                element: this.controller.inputWorkerPhoto,
+                message: "Veuillez entrer une URL valide. Exemple : 'https://www.exemple.com/photo.jpg'"
             });
         }
 
