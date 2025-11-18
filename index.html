@@ -47,7 +47,7 @@
                 <section class="input-group input-group-sm mb-3">
                     <input type="text" class="form-control" placeholder="Rechercher..." aria-label="Search"
                            id="searchInput">
-                    <button class="btn btn-outline-secondary" type="button" id="clearSearch">
+                    <button class="btn btn-outline-secondary" type="button" id="clearSearch" aria-label="Clear">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
                             <path fill="currentColor"
                                   d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"/>
@@ -90,8 +90,10 @@
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="modalStaffAssignToZoneLabel">Sélectionner un employé à assigner à la zone</h1>
                     </div>
-                    <div class="modal-body" id="membersZoneContainer">
-                        <!-- List -->
+                    <div class="modal-body" >
+                        <ul id="membersZoneContainer">
+                            <!-- List -->
+                        </ul>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Fermer</button>

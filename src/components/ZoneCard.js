@@ -51,7 +51,7 @@ export default class ZoneCard {
                 membersContainer.appendChild(employeeCard.element);
             });
         } else {
-            membersContainer.innerHTML = `<p class="text-center text-muted small mb-0">Aucun employe affecté</p>`;
+            membersContainer.innerHTML = `<li class="list-group-item"><p class="text-center text-muted small mb-0">Aucun employe affecté</p></li>`;
         }
         
         // Ajout de l'événement sur le bouton d'ajout

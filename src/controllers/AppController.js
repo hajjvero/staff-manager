@@ -46,7 +46,7 @@ export default class AppController {
                     this.containerUnassignedList.appendChild(card.element);
                 });
         } else {
-            this.containerUnassignedList.innerHTML = '<p class="text-center small text-muted">Aucun employé n\'est disponible.</p>';
+            this.containerUnassignedList.innerHTML = '<li class="list-group-item"><p class="text-center small text-muted">Aucun employé n\'est disponible.</p></li>';
         }
 
         // save changes
@@ -294,7 +294,7 @@ export default class AppController {
                     container.appendChild(card.element);
                 });
         } else {
-            container.innerHTML = '<p class="text-center text-muted small">Aucun employé disponible</p>';
+            container.innerHTML = '<li class="list-group-item"><p class="text-center text-muted small">Aucun employé disponible</p></li>';
         }
 
     }
