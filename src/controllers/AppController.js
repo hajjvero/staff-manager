@@ -33,8 +33,7 @@ export default class AppController {
             filteredEmployees = filteredEmployees.filter(emp => emp.name.toLowerCase().includes(search));
         }
 
-        const container = document.getElementById('unassignedList');
-        container.innerHTML = '';
+        this.containerUnassignedList.innerHTML = '';
 
         if (filteredEmployees.length > 0) {
             filteredEmployees
@@ -44,10 +43,10 @@ export default class AppController {
                         onRemove: () => this.removeEmployeeFromUnassigned(emp.id),
                         onEdit: () => this.editEmployee(emp)
                     });
-                    container.appendChild(card.element);
+                    this.containerUnassignedList.appendChild(card.element);
                 });
         } else {
-            container.innerHTML = '<p class="text-center small text-muted">Aucun employé n\'est disponible.</p>';
+            this.containerUnassignedList.innerHTML = '<p class="text-center small text-muted">Aucun employé n\'est disponible.</p>';
         }
 
         // save changes
@@ -245,7 +244,21 @@ export default class AppController {
         this.clearSearch.addEventListener('click', (e) => {
             this.searchInput.value = '';
             this.renderUnassignedList();
-        })
+        });
+
+        // unassigned List drag events
+        this.containerUnassignedList = document.getElementById('unassignedList');
+        this.containerUnassignedList.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+        this.containerUnassignedList.addEventListener('drop', (e) => {
+            const employeeId = e.dataTransfer.getData('text/plain');
+            if (this.isAssigned(employeeId)) {
+                this.plan.removeEmployeeFromPlan(employeeId); // remove employee from plan
+                this.renderUnassignedList(); // render unassigned list
+                this.renderZonesList(); // render zones list
+            }
+        });
     }
 
     // =================== Zone ===================
