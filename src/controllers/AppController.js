@@ -156,6 +156,10 @@ export default class AppController {
                     this.valodatore.displayError(this.inputExperienceFrom, "Ce champ est requis.");
                     isValid = false;
                 }
+                if(!isEmpty(this.inputExperienceTo.value) && !(new Date(this.inputExperienceFrom.value) < new Date(this.inputExperienceTo.value))) {
+                    this.valodatore.displayError(this.inputExperienceTo, "La date de fin doit être supérieure à la date de début.");
+                    isValid = false;
+                }
 
                 return isValid;
             };
@@ -228,11 +232,21 @@ export default class AppController {
         this.inputWorkerPhotoFile.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    this.photoPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
+                if (!file.type.match('image/*')) {
+                    alert('Le fichier n\'est pas une image.');
+                }
+                else if (file.size > 1024 * 1024 * 3) {
+                    alert('La taille du fichier est trop grande, veuillez choisir une image de moins de 3Mo.');
+                } else {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.photoPreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+
+                // Clear file input so that selecting the same file again will trigger the change event
+                e.target.value = '';
             }
         });
 
