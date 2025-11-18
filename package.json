@@ -4,8 +4,18 @@
   "description": "Workspace Staff Manager",
   "main": "assets/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "sass -q --no-source-map src/assets/styles/app.scss src/assets/app.css --style=compressed",
+    "server": "live-server --port=8080 --entry-file=index.html --no-browser"
   },
   "author": "Hamza HAJJAJI",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "bootstrap": "^5.3.8",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "sass": "^1.94.0"
+  }
 }

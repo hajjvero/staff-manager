@@ -1,10 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
+    <!-- meta -->
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- primary Meta Tags -->
+    <meta name="description" content="Professional staff management system - Organize, track, and manage your team efficiently with Staff Manager. Built by Hamza HAJJAJI.">
+    <meta name="keywords" content="staff management, team manager, employee management, workforce management, staff scheduler, team organization, HR management, youcode">
+    <meta name="author" content="Hamza HAJJAJI">
+
+    <!-- title -->
+    <title>Staff Manager - Professional Team Management System | Hamza HAJJAJI</title>
+
+    <!-- favicon -->
+    <link rel="icon" href="./public/favicon.ico">
+
+    <!-- preload -->
+    <link rel="preload" href="src/assets/app.css" as="style">
+    <link rel="preload" href="./src/app.js" as="script">
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="src/assets/app.css">
+
+    <!-- javascript -->
+    <script type="module" src="./src/app.js" defer></script>
+</head>
+<body class="bg-light">
+<div class="main-container">
+    <!-- ============================ HEADER ============================ -->
+    <header class="p-2 p-md-3 bg-white border-bottom header-fixed">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center gap-2 gap-md-3">
+                <img src="./public/youcode_logo.png" height="40" alt="Logo" fetchpriority="high">
+                <h1 class="app-title mb-0">Staff Manage</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================ MAIN ============================ -->
+    <main class="content-wrapper">
+        <div class="row g-0 w-100 h-100">
+            <!-- ============================ SIDEBAR ============================ -->
+            <aside class="col-12 col-md-4 col-lg-3 col-xl-2 bg-white sidebar p-3 border-end">
+                <h2 class="mb-3 fs-5 fs-md-4">Personnel non affecté</h2>
+
+                <!-- Search Input -->
+                <div class="input-group input-group-sm mb-3">
+                    <input type="text" class="form-control" placeholder="Rechercher..." aria-label="Search"
+                           id="searchInput">
+                    <button class="btn btn-outline-secondary" type="button" id="clearSearch" aria-label="Clear">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                  d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Staff List -->
+                <ul class="list-group mb-3 flex-shrink-1 overflow-y-auto" id="unassignedList" style="min-height: 100px">
+                    <!-- les employés non affectés -->
+                </ul>
+
+                <!-- Add New Worker Button -->
+                <button class="btn btn-success w-100 btn-sm btn-md-md" id="btn-add-worker" data-bs-toggle="modal"
+                        data-bs-target="#modalFormWorker">
+                    <span class="d-none d-sm-inline">Nouvel employé</span>
+                    <span class="d-sm-none">+ Employé</span>
+                </button>
+            </aside>
+
+            <!-- ============================ FLOOR PLAN ============================ -->
+            <section class="col-12 col-md-8 col-lg-9 col-xl-10 p-3 p-md-4 floor-plan-section">
+                <h2 class="fs-5 fs-md-4 mb-3">Plan d'étage</h2>
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2 g-md-3" id="zonesList">
+                    <!-- Zone list -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ============================ FOOTER ============================ -->
+    <footer>
+
+        <!-- ============================ MODAL STAFF ASSIGN TO ZONE ============================ -->
+        <div class="modal fade" id="modalStaffAssignToZone" tabindex="-1" aria-labelledby="modalStaffAssignToZoneLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalStaffAssignToZoneLabel">Sélectionner un employé à assigner à la zone</h1>
+                    </div>
+                    <div class="modal-body" >
+                        <ul id="membersZoneContainer">
+                            <!-- List -->
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================ MODAL FORM WORKER ============================ -->
+        <div class="modal fade" id="modalFormWorker" tabindex="-1" aria-labelledby="modalFormWorkerLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalFormWorkerLabel">Formulaire d'ajout d'un nouvel
+                            employé</h1>
+                    </div>
+                    <div class="modal-body">
+                        <form id="workerForm" novalidate>
+                            <input type="hidden" class="form-control" aria-label="workerId" id="workerId">
+                            <div class="mb-3 has-validation">
+                                <label for="workerName" class="form-label">Nom</label>
+                                <input type="text" class="form-control " id="workerName">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="workerRole" class="form-label">Role</label>
+                                <select class="form-control" id="workerRole">
+                                    <option  value="Réceptionniste">Réceptionniste</option>
+                                    <option  value="Techniciens IT">Techniciens IT</option>
+                                    <option  value="Agent de sécurité">Agent de sécurité</option>
+                                    <option  value="Manager">Manager</option>
+                                    <option  value="Nettoyage">Nettoyage</option>
+                                    <option  value="Autres">Autres</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="workerPhoto" class="form-label">Photo URL</label>
+                                <div class="input-group">
+                                    <div class="flex-grow-1">
+                                        <input type="url" class="form-control" id="workerPhoto">
+                                    </div>
+                                    <label class="btn btn-outline-primary" for="photo-file" title="Choisir une photo">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M9 10v6h6v-6h4l-7-7l-7 7zm3-4.2L14.2 8H13v6h-2V8H9.8zM19 18H5v2h14z"/></svg>
+                                        <input type="file" id="photo-file" class="d-none" accept="image/*">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 text-center">
+                                <img src="./public/default-avatar.svg" alt="employee photo" class="img-fluid rounded-circle border border-2 p-1" width="100" height="100" id="photo-preview">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="workerEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="workerEmail">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="workerPhone" class="form-label">Téléphone</label>
+                                <input type="tel" class="form-control" id="workerPhone">
+                            </div>
+
+                            <!-- Experience form dynamique -->
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h6 class="mb-0">
+                                        <button class="btn btn-link text-decoration-none text-dark w-100 text-start p-0 d-flex justify-content-between align-items-center"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapseExperience"
+                                                aria-expanded="true"
+                                                aria-controls="collapseExperience">
+                                            <span>Experience</span>
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="chevron-icon" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                            </svg>
+                                        </button>
+                                    </h6>
+                                </div>
+                                <div id="collapseExperience" class="collapse show">
+                                    <div class="card-body">
+                                        <input type="hidden" class="form-control" aria-label="experienceId" id="experienceId">
+                                        <div class="mb-3">
+                                            <label for="experienceCompany" class="form-label">Company</label>
+                                            <input type="text" class="form-control" id="experienceCompany">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="experienceRole" class="form-label">Rôle</label>
+                                            <input type="text" class="form-control" id="experienceRole">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="experienceFrom" class="form-label">From</label>
+                                            <input type="date" class="form-control" id="experienceFrom">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="experienceTo" class="form-label">To</label>
+                                            <input type="date" class="form-control" id="experienceTo">
+                                        </div>
+                                        <button type="button" class="btn btn-warning w-100" id="btn-sve-experience">Enregistrer expérience</button>
+                                    </div>
+                                    <div class="card-footer">
+                                        <!-- List of experiences -->
+                                        <div id="experiencesList">
+                                            <p class="text-center text-muted small mb-0">Aucune expérience n'est disponible</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer px-0">
+                                <button type="submit" class="btn btn-primary w-100" id="btn-save-worker-form">
+                                    Enregistrer
+                                </button>
+                                <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal"
+                                        id="btn-cancel-worker-form">Annuler
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================ MODAL DETAILS WORKER ============================ -->
+        <div class="modal fade" id="modalDetailsWorker" tabindex="-1" aria-labelledby="modalDetailsWorkerLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalDetailsWorkerLabel">Détails de l'employe</h1>
+                    </div>
+                    <div class="modal-body" id="modalProfileWorkerBody">
+                        <!-- Details -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+</div>
 </body>
 </html>
