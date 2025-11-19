@@ -1,0 +1,47 @@
+name: Deploy Hamza
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      # If you have a script like: "copy": "cp src/index.html dist/"
+      # run it here
+      # - run: npm run copy
+
+      - name: Upload static files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./              # folder you want to deploy (example: root)
+          # Change to "./dist" if you generate a folder
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
