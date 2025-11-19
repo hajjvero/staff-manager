@@ -1,0 +1,36 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ master ]  # تشغيل Workflow عند عمل Push على الفرع master
+
+# صلاحيات مطلوبة للنشر على GitHub Pages
+permissions:
+  contents: write   # صلاحية الكتابة في المستودع (لتحديث فرع gh-pages)
+  pages: write      # صلاحية التحكم في إعدادات GitHub Pages
+  id-token: write   # مطلوب للمصادقة الآمنة مع GitHub Pages
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # نظام التشغيل المستخدم
+    steps:
+      # 1. استخراج الكود من المستودع
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. تثبيت Node.js (اختر الإصدار المناسب لمشروعك)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22  # غيّر هذا حسب إصدار Node.js المطلوب
+
+      # 3. تثبيت التبعيات
+      - name: Install dependencies
+        run: npm install
+
+      # 5. النشر على GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4  # Action متخصص للنشر
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # مفتاح تلقائي من GitHub
+          publish_dir: ./dist  # المجلد المُنشأ بعد البناء (غيّره حسب مشروعك، مثال: build, docs)
