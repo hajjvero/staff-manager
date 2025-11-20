@@ -1,4 +1,5 @@
 import Zone from './Zone.js';
+import {ROLES} from "../utils/constants.js";
 
 export default class Plan {
     constructor(zones = []) {
@@ -31,6 +32,45 @@ export default class Plan {
         const zone = this.findZoneById(zoneId);
         if (!zone) throw new Error('Zone not found');
         zone.removeMember(employeeId);
+    }
+
+    signAllWorkers(employees) {
+        this.zones.forEach(zone => {
+            switch (zone.name) {
+                case "Salle des serveurs":
+                    employees.forEach(emp => {
+                        if (emp.role === ROLES.IT) {
+                            this.removeEmployeeFromPlan(emp.id);
+                            zone.addMember(emp);
+                        }
+                    });
+                    break;
+                case "Salle de sécurité":
+                    employees.forEach(emp => {
+                        if (emp.role === ROLES.SECURITE) {
+                            this.removeEmployeeFromPlan(emp.id);
+                            zone.addMember(emp);
+                        }
+                    });
+                    break;
+                case "Salle de réception":
+                    employees.forEach(emp => {
+                        if (emp.role === ROLES.RECEPTIONISTE) {
+                            this.removeEmployeeFromPlan(emp.id);
+                            zone.addMember(emp);
+                        }
+                    });
+                    break;
+                case "Salle de conférence":
+                case "Salle du personnel":
+                    employees.forEach(emp => {
+                        if (!this.isAssignedEmployee(emp.id)) {
+                            zone.addMember(emp);
+                        }
+                    });
+                    break;
+            }
+        });
     }
 
     toJSON() {
