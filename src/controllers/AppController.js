@@ -195,7 +195,6 @@ export default class AppController {
             e.preventDefault();
             if (this.valodatore.isValide()) {
                 const id = this.inputWorkerId.value.trim() || null
-                debugger
                 const employee = new Employee({
                     id,
                     name: this.inputWorkerName.value,
@@ -273,6 +272,16 @@ export default class AppController {
                 this.renderUnassignedList(); // render unassigned list
                 this.renderZonesList(); // render zones list
             }
+        });
+
+        // sign all workers
+        this.signAllWorkers = document.getElementById('signAllWorkers');
+        this.signAllWorkers.addEventListener('click', (e) => {
+            this.plan.signAllWorkers(this.employees);
+
+            this.renderUnassignedList();
+            this.renderZonesList();
+            this.saveState();
         });
     }
 
