@@ -341,7 +341,7 @@ export default class AppController {
         modalBody.innerHTML = `
             <!-- Employer Photo -->
             <div class="text-center mb-4">
-                <img src="${employer.photo}" alt="${employer.name}" class="rounded-circle img-thumbnail" style="width: 120px; height: 120px; object-fit: cover;">
+                <img src="${employer.photo ?? '../../public/default-avatar.svg'}" alt="${employer.name}" class="rounded-circle img-thumbnail" style="width: 120px; height: 120px; object-fit: cover;">
             </div>
         
             <!-- Personal Information -->
