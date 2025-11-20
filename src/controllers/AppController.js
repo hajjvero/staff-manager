@@ -195,11 +195,12 @@ export default class AppController {
             e.preventDefault();
             if (this.valodatore.isValide()) {
                 const id = this.inputWorkerId.value.trim() || null
+                debugger
                 const employee = new Employee({
                     id,
                     name: this.inputWorkerName.value,
                     role: this.inputWorkerRole.value,
-                    photo: this.photoPreview.src,
+                    photo: this.photoPreview.src && !this.photoPreview.src.trim().includes('public/default-avatar.svg') ? this.photoPreview.src : null,
                     email: this.inputWorkerEmail.value,
                     phone: this.inputWorkerPhone.value,
                     experiences: this.temporaryExperience
