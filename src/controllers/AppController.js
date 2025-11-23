@@ -240,6 +240,7 @@ export default class AppController {
                 } else {
                     const reader = new FileReader();
                     reader.onload = (e) => {
+                        this.inputWorkerPhoto.value = '';
                         this.photoPreview.src = e.target.result;
                     };
                     reader.readAsDataURL(file);
