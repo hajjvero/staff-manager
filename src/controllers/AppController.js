@@ -30,7 +30,7 @@ export default class AppController {
         const search = this.searchInput.value.toLowerCase().trim();
         let filteredEmployees = this.employees.filter(e => !this.isAssigned(e.id));
         if (!isEmpty(search)) {
-            filteredEmployees = filteredEmployees.filter(emp => emp.name.toLowerCase().includes(search));
+            filteredEmployees = filteredEmployees.filter(emp => emp.name.toLowerCase().includes(search) || emp.role.toLowerCase().includes(search) || emp.email.toLowerCase().includes(search));
         }
 
         this.containerUnassignedList.innerHTML = '';
